@@ -28,6 +28,14 @@ export interface GameState {
   solvedGroups: string[][];
   attempts: AttemptResult[];
   message: string;
+  messageType?: MessageType; // P621a
 }
 
-export type WordLength = 'veryShort' | 'short' | 'medium' | 'long' | 'veryLong';
+export enum MessageType {
+  CORRECT = 'correct',
+  ALMOST_CORRECT = 'almost_correct',
+  INCORRECT = 'incorrect',
+  DUPLICATE_GUESS = 'duplicate_guess',
+  RESET = 'reset',
+  INFO = 'info'
+}

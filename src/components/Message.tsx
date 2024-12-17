@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { AlertCircle } from 'lucide-react';
+import { MessageType } from '../types';
 
 interface MessageProps {
   message: string;
+  messageType: MessageType;
 }
 
-export function Message({ message }: MessageProps) {
+export function Message({ message, messageType }: MessageProps) {
   const [shake, setShake] = useState(false);
 
   useEffect(() => {
-    if (message.includes('wrong') || message.includes('blocked')) {
+    if (messageType === MessageType.INCORRECT || messageType === MessageType.DUPLICATE_GUESS) {
       setShake(true);
       const timer = setTimeout(() => setShake(false), 500);
       return () => clearTimeout(timer);
     }
-  }, [message]);
+  }, [messageType]);
 
   if (!message) return null;
 
