@@ -17,6 +17,7 @@ export default function App() {
     solvedGroups,
     attempts,
     message,
+    messageType,
     handleWordClick,
     checkSelection,
     setMessage,
@@ -72,6 +73,7 @@ export default function App() {
           solvedGroups={solvedGroups}
           puzzle={puzzle}
           message={message}
+          messageType={messageType}
           attempts={attempts}
         />
         <Controls

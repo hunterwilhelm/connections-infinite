@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectedWord, Connection } from '../types';
+import { SelectedWord, Connection, MessageType } from '../types';
 import { getWordSize } from '../utils/styles';
 import { WordTile } from './WordTile';
 import { SolvedGroupRow } from './SolvedGroupRow';
@@ -12,6 +12,7 @@ interface WordGridProps {
   solvedGroups: string[][];
   puzzle: { answers: Connection[] } | null;
   message: string;
+  messageType: MessageType;
   attempts: any[];
 }
 
@@ -22,6 +23,7 @@ export function WordGrid({
   solvedGroups, 
   puzzle,
   message,
+  messageType,
   attempts 
 }: WordGridProps) {
   const remainingWords = words.filter(word => 
@@ -77,7 +79,7 @@ export function WordGrid({
         <div className="text-sm text-gray-600 text-center">
           Guesses made: {attempts.length}
         </div>
-        <Message message={message} />
+        <Message message={message} messageType={messageType} />
       </div>
     </div>
   );
