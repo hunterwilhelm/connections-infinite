@@ -9,9 +9,16 @@ interface WordTileProps {
 }
 
 export function WordTile({ word, selected, onClick }: WordTileProps) {
+  const handleClick = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // Haptic feedback for word click
+    }
+    onClick();
+  };
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
       className={`
         aspect-square w-full
         flex items-center justify-center

@@ -40,6 +40,9 @@ export function useGameState(puzzleId: number | null) {
       setGameState(createInitialState());
       initializedRef.current = false;
       isDirty.current = false;
+      if (navigator.vibrate) {
+        navigator.vibrate(200); // Haptic feedback for game reset
+      }
     }
   }, [puzzleId]);
 
@@ -79,6 +82,9 @@ export function useGameState(puzzleId: number | null) {
         ...prevState,
         message: 'You have already made this guess.'
       }));
+      if (navigator.vibrate) {
+        navigator.vibrate(100); // Haptic feedback for duplicate guess
+      }
       return;
     }
 
@@ -95,10 +101,19 @@ export function useGameState(puzzleId: number | null) {
         newState.solvedGroups = [...prevState.solvedGroups, selectedWordsList];
         newState.message = `Correct! Category: ${result.matchedGroup.group}`;
         newState.selectedWords = [];
+        if (navigator.vibrate) {
+          navigator.vibrate(200); // Haptic feedback for correct guess
+        }
       } else if (result.almostCorrect) {
         newState.message = 'So close! You have 3 words from the same group!';
+        if (navigator.vibrate) {
+          navigator.vibrate(150); // Haptic feedback for almost correct guess
+        }
       } else {
         newState.message = 'Those words don\'t belong together';
+        if (navigator.vibrate) {
+          navigator.vibrate(100); // Haptic feedback for incorrect guess
+        }
       }
 
       return newState;
