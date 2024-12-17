@@ -19,7 +19,6 @@ export interface AttemptResult {
   correctWords: string[];
   almostCorrect: boolean;
   matchedGroup?: Connection;
-  // Add these fields to track words and answers for incorrect attempts
   selectedWords?: string[];
   answers?: Connection[];
 }
@@ -30,3 +29,5 @@ export interface GameState {
   attempts: AttemptResult[];
   message: string;
 }
+
+export type WordLength = 'veryShort' | 'short' | 'medium' | 'long' | 'veryLong';
