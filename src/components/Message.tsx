@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AlertCircle } from 'lucide-react';
 import { MessageType } from '../types';
+import { ButtonPressContext } from '../context/ButtonPressContext';
 
 interface MessageProps {
   message: string;
@@ -9,6 +10,7 @@ interface MessageProps {
 
 export function Message({ message, messageType }: MessageProps) {
   const [shake, setShake] = useState(false);
+  const { buttonPressCount } = useContext(ButtonPressContext);
 
   useEffect(() => {
     if (messageType === MessageType.INCORRECT || messageType === MessageType.DUPLICATE_GUESS) {
@@ -17,7 +19,7 @@ export function Message({ message, messageType }: MessageProps) {
       const timer = setTimeout(() => setShake(false), 500);
       return () => clearTimeout(timer);
     }
-  }, [messageType, message]);
+  }, [messageType, message, buttonPressCount]);
 
   if (!message) return null;
 
