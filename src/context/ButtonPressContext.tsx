@@ -28,3 +28,5 @@ export const useButtonPressContext = () => {
   }
   return context;
 };
+
+export { ButtonPressContext }; // Export ButtonPressContext to fix the import error in Message.tsx
