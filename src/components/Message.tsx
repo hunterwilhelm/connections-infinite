@@ -12,11 +12,12 @@ export function Message({ message, messageType }: MessageProps) {
 
   useEffect(() => {
     if (messageType === MessageType.INCORRECT || messageType === MessageType.DUPLICATE_GUESS) {
-      setShake(true);
+      setShake(false); // Reset shake state
+      setTimeout(() => setShake(true), 0); // Trigger shake animation
       const timer = setTimeout(() => setShake(false), 500);
       return () => clearTimeout(timer);
     }
-  }, [messageType]);
+  }, [messageType, message]);
 
   if (!message) return null;
 
