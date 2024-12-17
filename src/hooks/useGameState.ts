@@ -68,6 +68,20 @@ export function useGameState(puzzleId: number | null) {
     if (!puzzle || gameState.selectedWords.length !== 4) return;
 
     const selectedWordsList = gameState.selectedWords.map(s => s.word);
+
+    // Check if the guess has already been made
+    const isDuplicateGuess = gameState.attempts.some(attempt =>
+      attempt.selectedWords?.every(word => selectedWordsList.includes(word))
+    );
+
+    if (isDuplicateGuess) {
+      setGameState(prevState => ({
+        ...prevState,
+        message: 'You have already made this guess.'
+      }));
+      return;
+    }
+
     const result = checkGuess(selectedWordsList, puzzle.answers);
 
     isDirty.current = true;
@@ -89,7 +103,7 @@ export function useGameState(puzzleId: number | null) {
 
       return newState;
     });
-  }, [gameState.selectedWords]);
+  }, [gameState.selectedWords, gameState.attempts]);
 
   const setMessage = useCallback((message: string) => {
     isDirty.current = true;
