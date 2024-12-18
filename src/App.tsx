@@ -98,6 +98,24 @@ export default function App() {
           onClose={() => setShowResetModal(false)}
           onConfirm={resetGame}
         />
+        <div className="banner rounded-lg p-4 mt-6 flex flex-col items-center space-y-4">
+          <p className="text-gray-700 text-center">
+            Built with <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">bolt.new</a> and <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">GitHub Copilot Workspace</a>
+          </p>
+          <div className="logos flex space-x-4">
+            <a href="https://bolt.new" target="_blank" rel="noopener noreferrer">
+              <img src="/bolt-new-logo.jpg" alt="bolt.new logo" className="h-12 w-auto" />
+            </a>
+            <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">
+              <img src="/copilot-workspace-logo.svg" alt="GitHub Copilot Workspace logo" className="h-12 w-auto" />
+            </a>
+          </div>
+        </div>
+        <div>
+          <p className="text-gray-700 text-center text-sm mt-4">
+            This application is not affiliated with The New York Times. All puzzles and data are generated independently. No ads No data is saved or shared. 
+          </p>
+        </div>
       </div>
     </ButtonPressProvider>
   );

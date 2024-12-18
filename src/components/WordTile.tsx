@@ -23,9 +23,10 @@ export function WordTile({ word, selected, onClick }: WordTileProps) {
         aspect-square w-full
         flex items-center justify-center
         border-2 rounded font-semibold
-        hover:bg-gray-100 cursor-pointer
-        transition-all duration-300 ease-in-out
         ${selected ? 'bg-blue-100 border-blue-400' : 'bg-white border-gray-300'}
+        ${!isMobile() && 'hover:bg-blue-100'}
+        cursor-pointer
+        transition-all duration-300 ease-in-out
         touch-manipulation
         p-0.5
       `}
@@ -36,4 +37,8 @@ export function WordTile({ word, selected, onClick }: WordTileProps) {
       </span>
     </button>
   );
+}
+
+function isMobile() {
+  return /Mobi|Android/i.test(navigator.userAgent);
 }
