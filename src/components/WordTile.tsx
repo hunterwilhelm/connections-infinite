@@ -24,7 +24,7 @@ export function WordTile({ word, selected, onClick }: WordTileProps) {
         flex items-center justify-center
         border-2 rounded font-semibold
         ${selected ? 'bg-blue-100 border-blue-400' : 'bg-white border-gray-300'}
-        ${!isMobile() && 'hover:bg-blue-50'}
+        ${!isMobile() && 'hover:bg-blue-100'}
         cursor-pointer
         transition-all duration-300 ease-in-out
         touch-manipulation
