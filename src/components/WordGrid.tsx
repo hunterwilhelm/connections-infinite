@@ -11,9 +11,8 @@ interface WordGridProps {
   onWordClick: (word: string, index: number) => void;
   solvedGroups: string[][];
   puzzle: { answers: Connection[] } | null;
-  message: string;
-  messageType: MessageType;
   attempts: any[];
+  messages: { text: string; type: MessageType }[];
 }
 
 export function WordGrid({ 
@@ -22,9 +21,8 @@ export function WordGrid({
   onWordClick, 
   solvedGroups, 
   puzzle,
-  message,
-  messageType,
-  attempts 
+  attempts,
+  messages,
 }: WordGridProps) {
   const remainingWords = words.filter(word => 
     !solvedGroups.some(group => group.includes(word))
@@ -79,7 +77,7 @@ export function WordGrid({
         <div className="text-sm text-gray-600 text-center">
           Guesses made: {attempts.length}
         </div>
-        <Message message={message} messageType={messageType} />
+        <Message messages={messages} />
       </div>
     </div>
   );
