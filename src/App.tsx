@@ -98,6 +98,17 @@ export default function App() {
           onClose={() => setShowResetModal(false)}
           onConfirm={resetGame}
         />
+        <div className="banner">
+          <p>Built with <a href="https://bolt.new" target="_blank" rel="noopener noreferrer">bolt.new</a> and <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">GitHub Copilot Workspace</a></p>
+          <div className="logos">
+            <a href="https://bolt.new" target="_blank" rel="noopener noreferrer">
+              <img src="/bolt-new-logo.png" alt="bolt.new logo" />
+            </a>
+            <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">
+              <img src="/copilot-workspace-logo.png" alt="GitHub Copilot Workspace logo" />
+            </a>
+          </div>
+        </div>
       </div>
     </ButtonPressProvider>
   );
