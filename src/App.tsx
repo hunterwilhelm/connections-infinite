@@ -12,13 +12,12 @@ import { getEmojiGrid } from './utils/emoji';
 import { ButtonPressProvider } from './context/ButtonPressContext';
 
 export default function App() {
-  const { puzzle, words, isLoading, error } = usePuzzle();
+  const { puzzle, words, isLoading, error, fetchPuzzleById } = usePuzzle();
   const {
     selectedWords,
     solvedGroups,
     attempts,
-    message,
-    messageType,
+    messages,
     handleWordClick,
     checkSelection,
     setMessage,
@@ -28,6 +27,7 @@ export default function App() {
   const { isActive: showConfetti, startConfetti } = useConfetti();
   const [showWinModal, setShowWinModal] = useState(false);
   const [showResetModal, setShowResetModal] = useState(false);
+  const [puzzleIdInput, setPuzzleIdInput] = useState('');
   const isGameComplete = puzzle && solvedGroups.length === puzzle.answers.length;
 
   useEffect(() => {
@@ -44,6 +44,13 @@ export default function App() {
     const shareText = `Connections Infinite\n#${puzzle.id}\n${emojiGrid}`;
     navigator.clipboard.writeText(shareText);
     setMessage('Results copied to clipboard!');
+  };
+
+  const handleFetchPuzzle = () => {
+    const puzzleId = parseInt(puzzleIdInput, 10);
+    if (!isNaN(puzzleId)) {
+      fetchPuzzleById(puzzleId);
+    }
   };
 
   if (isLoading) {
@@ -74,8 +81,7 @@ export default function App() {
             onWordClick={handleWordClick}
             solvedGroups={solvedGroups}
             puzzle={puzzle}
-            message={message}
-            messageType={messageType}
+            messages={messages}
             attempts={attempts}
           />
           <Controls
@@ -85,6 +91,21 @@ export default function App() {
             canSubmit={selectedWords.length === 4}
             canShare={attempts.length > 0}
           />
+          <div className="flex justify-center mt-4">
+            <input
+              type="number"
+              value={puzzleIdInput}
+              onChange={(e) => setPuzzleIdInput(e.target.value)}
+              placeholder="Enter puzzle ID"
+              className="px-4 py-2 border rounded-lg"
+            />
+            <button
+              onClick={handleFetchPuzzle}
+              className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
+            >
+              Fetch Puzzle
+            </button>
+          </div>
         </div>
         <WinModal
           isOpen={showWinModal}

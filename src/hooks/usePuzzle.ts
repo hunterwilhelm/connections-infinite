@@ -30,5 +30,32 @@ export function usePuzzle() {
       });
   }, []);
 
-  return { puzzle, words, isLoading, error };
+  const fetchPuzzleById = (id: number) => {
+    setIsLoading(true);
+    fetch('https://raw.githubusercontent.com/Eyefyre/NYT-Connections-Answers/main/connections.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch puzzle data');
+        }
+        return response.json();
+      })
+      .then((data: PuzzleData[]) => {
+        const puzzleById = data.find(puzzle => puzzle.id === id);
+        if (puzzleById) {
+          setPuzzle(puzzleById);
+          const allWords = puzzleById.answers.flatMap(answer => answer.members);
+          setWords(shuffleArray(allWords));
+        } else {
+          throw new Error('Puzzle not found');
+        }
+      })
+      .catch(err => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  return { puzzle, words, isLoading, error, fetchPuzzleById };
 }

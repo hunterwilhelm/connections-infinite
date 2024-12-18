@@ -81,7 +81,7 @@ export function useGameState(puzzleId: number | null) {
     if (isDuplicateGuess) {
       setGameState(prevState => ({
         ...prevState,
-        message: 'You have already made this guess.',
+        message: prevState.message ? `${prevState.message}\nYou have already made this guess.` : 'You have already made this guess.',
         messageType: MessageType.DUPLICATE_GUESS
       }));
       if (navigator.vibrate) {
@@ -101,20 +101,20 @@ export function useGameState(puzzleId: number | null) {
 
       if (result.matchedGroup) {
         newState.solvedGroups = [...prevState.solvedGroups, selectedWordsList];
-        newState.message = `Correct! Category: ${result.matchedGroup.group}`;
+        newState.message = prevState.message ? `${prevState.message}\nCorrect! Category: ${result.matchedGroup.group}` : `Correct! Category: ${result.matchedGroup.group}`;
         newState.messageType = MessageType.CORRECT;
         newState.selectedWords = [];
         if (navigator.vibrate) {
           navigator.vibrate(200); // Haptic feedback for correct guess
         }
       } else if (result.almostCorrect) {
-        newState.message = 'So close! You have 3 words from the same group!';
+        newState.message = prevState.message ? `${prevState.message}\nSo close! You have 3 words from the same group!` : 'So close! You have 3 words from the same group!';
         newState.messageType = MessageType.ALMOST_CORRECT;
         if (navigator.vibrate) {
           navigator.vibrate(150); // Haptic feedback for almost correct guess
         }
       } else {
-        newState.message = 'Those words don\'t belong together';
+        newState.message = prevState.message ? `${prevState.message}\nThose words don't belong together` : 'Those words don\'t belong together';
         newState.messageType = MessageType.INCORRECT;
         if (navigator.vibrate) {
           navigator.vibrate(100); // Haptic feedback for incorrect guess
@@ -127,7 +127,7 @@ export function useGameState(puzzleId: number | null) {
 
   const setMessage = useCallback((message: string, messageType: MessageType = MessageType.INFO) => {
     isDirty.current = true;
-    setGameState(prevState => ({ ...prevState, message, messageType }));
+    setGameState(prevState => ({ ...prevState, message: prevState.message ? `${prevState.message}\n${message}` : message, messageType }));
   }, []);
 
   return {
